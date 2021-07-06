@@ -1,0 +1,87 @@
+I followed Jonas course and implemented my own way of doing file uploads using AWS S3. I am not saving the files in my server, but instead make use of a popular file storage solution offered by AWS which is in my opinion, a very cost-effective way.
+
+tourController.js
+
+Firstly install and require the following packages.
+
+const multer = require('multer');
+const aws = require('aws-sdk');
+const multerS3 = require('multer-s3');
+
+Next, create a bucket in AWS S3 in your region and create Access Key ID and its secret. Provide them in the application.
+
+aws.config.update({
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  region: process.env.AWS_REGION
+});
+
+Interact with AWS SDK - S3 Service
+
+const s3 = new aws.S3();
+
+Create a Multer Storage in using multerS3 instead of using Disk Storage. The key refers to the file name that you want to modify.
+
+const multerStorage = multerS3({
+  s3: s3,
+  bucket: 'natours-files',
+  key: (req, file, cb) => {
+    const name = file.originalname.split('.')[0];
+    const ext = file.mimetype.split('/')[1];
+    cb(null, `${name}-${Date.now()}.${ext}`);
+  }
+});
+
+
+
+Create File Filter
+
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith('image')) {
+    cb(null, true);
+  } else {
+    cb(
+      new ErrorExpress(
+        'File uploaded is not an image. Please upload an image.',
+        400
+      )
+    );
+  }
+};
+
+
+Use the upload middleware
+
+exports.uploadTourImages = upload.array('images', 10);
+
+
+Create another middleware to save the array of images links to the database by insert it in the req.body
+
+exports.insertTourImagesLinks = (req, res, next) => {
+  if (!req.files) return next();
+ 
+  let images = [];
+  req.files.map(file => {
+    images.push(file.location);
+  });
+  req.body.images = images;
+  next();
+};
+
+
+Now we are done! Try using it in tourRouter.js file.
+
+
+
+tourRouter.js
+
+router
+  .route('/:id')
+  .patch(
+    tourController.uploadTourImages,
+    tourController.insertTourImagesLinks,
+    tourController.updateTour
+  )
+
+
+Now, once you access that route via Postman and provide the images (up to 10) fields, you can now see them in both your database and your S3 bucket.
