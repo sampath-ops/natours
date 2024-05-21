@@ -7,12 +7,14 @@ const catchAsync = require('./../utils/catchAsync');
 const Email = require('./../utils/email');
 
 const signToken = (id) => {
+  console.log('expires in ',process.env.JWT_EXPIRES_IN)
   return jwt.sign({ _id: id }, process.env.JWT_SECRET, {
     expiresIn: `${process.env.JWT_EXPIRES_IN}`,
   });
 };
 
 const sendCreateToken = (user, statusCode, res) => {
+
   const token = signToken(user._id);
   const cookieOptions = {
     expires: new Date(
@@ -22,13 +24,15 @@ const sendCreateToken = (user, statusCode, res) => {
   };
   if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
   res.cookie('jwt', token, cookieOptions);
+  // Remove password from output
+  user.password = undefined;
 
   res.status(statusCode).json({
     status: 'success',
     token: token,
-    // data: {
-    //   user,
-    // },
+    data: {
+      user,
+    },
   });
 };
 
@@ -59,7 +63,6 @@ exports.login = catchAsync(async (req, res, next) => {
   if (!user || !(await user.comparePassword(password, user.password))) {
     return next(new AppError('Incorrect email or password', 401));
   }
-  //   console.log(user);
 
   //3. send token
   sendCreateToken(user, 200, res);
@@ -67,7 +70,7 @@ exports.login = catchAsync(async (req, res, next) => {
 
 exports.logout = (req, res) => {
   res.cookie('jwt', 'loggedout', {
-    expires: new Date(Date.now() * 10 * 1000),
+    expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
   });
   res.status(200).json({
@@ -76,7 +79,6 @@ exports.logout = (req, res) => {
 };
 
 exports.protect = catchAsync(async (req, res, next) => {
-  //   console.log(req.headers.authorization);
 
   //1. Getting token and check for its there
   let token;
@@ -93,11 +95,9 @@ exports.protect = catchAsync(async (req, res, next) => {
       new AppError('You are not logged in, please log in to get access')
     );
   }
-  //console.log(token);
 
   //2. verification
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-  // console.log(decoded);
 
   //3. check if user still exist
   const currentUser = await User.findById(decoded._id);
@@ -114,6 +114,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     );
   }
 
+  // GRANT ACCESS TO PROTECTED ROUTE
   req.user = currentUser;
   res.locals.user = currentUser;
   next();

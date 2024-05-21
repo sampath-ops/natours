@@ -38,6 +38,13 @@ exports.getTour = catchAsync(async (req, res, next) => {
     });
 });
 
+exports.getSingupForm = (req, res) => {
+  res.status(200).render("signup", {
+    title: "create your account!"
+  });
+};
+
+
 exports.getLogin = catchAsync(async (req, res) => {
   res
     .status(200)
@@ -63,6 +70,20 @@ exports.getMyTour = catchAsync(async (req, res, next) => {
   //2. Find tours with the returned IDs
   const tourIDs = bookings.map((el) => el.tour);
   const tours = await Tour.find({ _id: { $in: tourIDs } });
+
+  if (bookings.length === 0) {
+    res.status(200).render("nullbooking", {
+      title: "Book Tours",
+      headLine: `You haven't booked any tours yet!`,
+      msg: `Please book a tour and come back. 🙂`
+    });
+  } else {
+    res.status(200).render("overview", {
+      title: "My Tours",
+      tours
+    });
+  }
+
   res.status(200).render('overview', { title: 'My Tour', tours });
 });
 

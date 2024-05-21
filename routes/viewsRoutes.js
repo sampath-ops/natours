@@ -21,6 +21,9 @@ router.get('/login', authController.isLoggedIn, viewController.getLogin);
 // TOUR
 router.get('/tour/:slug', authController.isLoggedIn, viewController.getTour);
 
+// Signup route
+router.get("/signup", authController.isLoggedIn, viewController.getSingupForm);
+
 // ACCOUNT
 router.get('/me', authController.protect, viewController.getAccount);
 
