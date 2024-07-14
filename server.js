@@ -24,7 +24,7 @@ mongoose
     useFindAndModify: false,
     useUnifiedTopology: true,
   })
-  .then(() => console.log('connected successfully!!!'));
+  .then(() => console.log('connected successfully!!!')).catch(err => console.log(err));
 
 // // CREATE A DOCUMENT
 // const tourTest = new Tour({
@@ -45,7 +45,7 @@ mongoose
 
 // START SERVER
 const app = require('./app');
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const server = app.listen(port, () => {
   console.log(`Listening on port:${port}`);
 });
