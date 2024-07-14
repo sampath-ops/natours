@@ -2,6 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 const path = require('path');
 const csp = require('express-csp');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
@@ -16,6 +17,12 @@ const globalErrorHandler = require('./controller/errorHandler');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const app = express();
+
+app.use(
+  cors({
+    origin: 'https://natours-sampath.vercel.app',
+  })
+);
 
 // set view engine
 app.set('view engine', 'pug');
