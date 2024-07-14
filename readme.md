@@ -144,9 +144,10 @@ If you wish to play around with the code base in your local environment, do the 
     * DATABASE=your Mongodb database URL
     * DATABASE_PASSWORD=your MongoDB password
 
-    * SECRET=your JSON web token secret
+    * JWT_SECRET=your JSON web token secret
     * JWT_EXPIRES_IN=90d
     * JWT_COOKIE_EXPIRES_IN=90
+    * NODE_ENV= 
 
     * EMAIL_USERNAME=your mailtrap username
     * EMAIL_PASSWORD=your mailtrap password
@@ -163,9 +164,6 @@ If you wish to play around with the code base in your local environment, do the 
 * Start the server.
 * Your app should be running just fine.
 ```
-#### Demo-`.env` file :
-
-![demo-env-file](https://github.com/lgope/Natours/assets/58518192/cf5b833f-2a48-48a1-aeb3-5ffea8967e33)
 
 ## Installation 🛠️
 
