@@ -18,11 +18,11 @@ const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const app = express();
 
-app.use(
-  cors({
-    origin: 'https://natours-sampath.vercel.app',
-  })
-);
+// app.use(
+//   cors({
+//     origin: 'https://natours-sampath.vercel.app',
+//   })
+// );
 
 // set view engine
 app.set('view engine', 'pug');
