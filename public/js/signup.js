@@ -1,27 +1,27 @@
 /* eslint-disable */
-import axios from "axios";
-import { showAlert } from "./alerts";
+import axios from 'axios';
+import { showAlert } from './alerts';
 
 export const signup = async (name, email, password, confirmPassword) => {
   try {
     const res = await axios({
-      method: "POST",
-      url: "http://localhost:3000/api/v1/users/signup",
+      method: 'POST',
+      url: 'https://natours-sampath.vercel.app/api/v1/users/signup',
       data: {
         name,
         email,
         password,
-        confirmPassword
-      }
+        confirmPassword,
+      },
     });
 
-    if (res.data.status === "success") {
-      showAlert("success", "signed up in successfully!");
+    if (res.data.status === 'success') {
+      showAlert('success', 'signed up in successfully!');
       window.setTimeout(() => {
-        location.assign("/");
+        location.assign('/');
       }, 1000);
     }
   } catch (err) {
-    showAlert("error", err.response.data.message);
+    showAlert('error', err.response.data.message);
   }
 };

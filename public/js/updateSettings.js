@@ -3,11 +3,14 @@ import { showAlert } from './alerts';
 // type is either password or data
 export const updateSetttings = async (data, type) => {
   try {
-    const url = type === 'password' ? 'http://localhost:3000/api/v1/users/updatePassword' : 'http://localhost:3000/api/v1/users/updateMe';
+    const url =
+      type === 'password'
+        ? 'https://natours-sampath.vercel.app/api/v1/users/updatePassword'
+        : 'https://natours-sampath.vercel.app/api/v1/users/updateMe';
     const res = await axios({
       method: 'PATCH',
       url,
-      data
+      data,
     });
     if (res.data.status === 'success') {
       showAlert('success', `${type.toUpperCase()} updated successfully`);
