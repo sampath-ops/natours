@@ -1,15 +1,14 @@
 <h1 align="center">
   <br>
-  <a href="https://lakshman-natours.herokuapp.com/"><img src="https://github.com/lgope/Natours/blob/master/public/img/logo-green-round.png" alt="Natours" width="200"></a>
+  <a href="https://natours-sampath.vercel.app/"><img src="https://github.com/lgope/Natours/blob/master/public/img/logo-green-round.png" alt="Natours" width="200"></a>
   <br>
-  Natours
+  <a href="https://natours-sampath.vercel.app/">Natours</a>
   <br>
 </h1>
 
 <h4 align="center">An awesome tour booking site built on top of <a href="https://nodejs.org/en/" target="_blank">NodeJS</a>.</h4>
 
  <p align="center">
- <a href="#deployed-version">Demo</a> •
   <a href="#key-features">Key Features</a> •
   <a href="#demonstration">Demonstration</a> •
   <a href="#how-to-use">How To Use</a> •
@@ -18,12 +17,10 @@
   <a href="#build-with">Build With</a> •
   <a href="#to-do">To-do</a> •
   <a href="#installation">Installation</a> • 
-  <a href="#known-bugs">Known Bugs</a> • 
-  <a href="#future-updates">Future Updates</a> • 
   <a href="#acknowledgement">Acknowledgement</a>
 </p>
 
-## Key Features 📝
+## Key Features📝
 
 - Authentication and Authorization
   - Sign up, Log in, Logout, Update, and reset password.
@@ -54,7 +51,7 @@
   - An admin can delete any review.
 - Credit card Payment
 
-## Demonstration 🖥️
+## Demonstration🖥️
 
 #### Home Page :
 
@@ -80,7 +77,7 @@
 
 ![rsz_adminprofile](https://user-images.githubusercontent.com/58518192/72607648-4d463a80-394b-11ea-972f-a73160cfaa5b.png)
 
-## How To Use 🤔
+## How To Use🤔
 
 ### Book a tour
 
@@ -116,7 +113,7 @@ Before using the API, you need to set the variables in Postman depending on your
 
 Check [Natours API Documentation](https://documenter.getpostman.com/view/8893042/SW7c37V6) for more info.
 
-## Build With 🏗️
+## Build With🏗️
 
 - [NodeJS](https://nodejs.org/en/) - JS runtime environment
 - [Express](http://expressjs.com/) - The web framework used
@@ -165,7 +162,7 @@ If you wish to play around with the code base in your local environment, do the 
 * Your app should be running just fine.
 ```
 
-## Installation 🛠️
+## Installation🛠️
 
 You can fork the app or you can git-clone the app into your local machine. Once done, please install all the
 dependencies by running
@@ -183,6 +180,6 @@ Setting up ESLint and Prettier in VS Code 👇🏻
 $ npm i eslint prettier eslint-config-prettier eslint-plugin-prettier eslint-config-airbnb eslint-plugin-node
 eslint-plugin-import eslint-plugin-jsx-a11y  eslint-plugin-react --save-dev
 ```
-## Acknowledgement 🙏🏻
+## Acknowledgement🙏🏻
 
 - This project is part of the online course I've taken at Udemy. Thanks to Jonas Schmedtmann for creating this awesome course! Link to the course: [Node.js, Express, MongoDB & More: The Complete Bootcamp 2019](https://www.udemy.com/course/nodejs-express-mongodb-bootcamp/)
